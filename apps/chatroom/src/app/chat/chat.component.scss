@@ -1,0 +1,30 @@
+@import '@fundamental-styles/common-css/dist/sass/common-mixins';
+
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-area {
+  flex-grow: 1;
+  height: 100%;
+  padding: 1rem;
+  max-height: calc(100% - 118px);
+  overflow: auto;
+}
+
+.compose-message-area {
+  flex-grow: 1;
+  background-color: var(--sapField_Background);
+  @include sap-border(
+    0.0625rem,
+    solid,
+    var(--sapGroup_ContentBorderColor),
+    top
+  );
+}

@@ -1,0 +1,39 @@
+<div fd-bar>
+  <div fd-bar-left>
+    <fd-bar-element> Chats </fd-bar-element>
+  </div>
+  <div fd-bar-right>
+    <fd-bar-element>
+      <button
+        fd-button
+        fdType="transparent"
+        glyph="write-new"
+        (click)="openDialog()"
+      ></button>
+      <button
+        fd-button
+        fdType="transparent"
+        glyph="settings"
+        (click)="openSettings()"
+      ></button>
+    </fd-bar-element>
+  </div>
+</div>
+<ul fd-list [byline]="true" [navigationIndicator]="true">
+  <li fd-list-item *ngFor="let room of rooms()">
+    <a
+      fd-list-link
+      #router="routerLinkActive"
+      [navigationIndicator]="true"
+      [routerLink]="['/chats/chat', room.id]"
+      routerLinkActive
+      [navigated]="router.isActive"
+    >
+      <span fd-list-thumbnail></span>
+      <div fd-list-content>
+        <div fd-list-title>{{ room.name }}</div>
+        <div fd-list-byline>{{ room.messages[0]?.message }}</div>
+      </div>
+    </a>
+  </li>
+</ul>

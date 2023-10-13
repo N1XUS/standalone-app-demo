@@ -1,0 +1,19 @@
+@import '@fundamental-styles/common-css/dist/sass/common-mixins';
+
+.fd-dynamic-side {
+  position: relative;
+  height: 100%;
+  &__main {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+  }
+  & &__side {
+    @include sap-border(
+      0.0625rem,
+      solid,
+      var(--sapGroup_ContentBorderColor),
+      right
+    );
+  }
+}

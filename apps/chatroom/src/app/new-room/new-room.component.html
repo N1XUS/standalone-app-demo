@@ -1,0 +1,36 @@
+<fd-dialog [dialogRef]="dialogRef">
+  <fd-dialog-header>
+    <h1 id="fd-dialog-header-10" fd-title>Create new chat room</h1>
+  </fd-dialog-header>
+
+  <fd-dialog-body>
+    <div fd-form-item>
+      <label fd-form-label for="login-input">Room name</label>
+      <input
+        fd-form-control
+        type="text"
+        id="login-input"
+        placeholder="Plese provide room name"
+        name="login"
+        [(ngModel)]="roomName"
+        required=""
+      />
+    </div>
+  </fd-dialog-body>
+
+  <fd-dialog-footer>
+    <fd-button-bar
+      fdType="emphasized"
+      label="Submit"
+      [disabled]="!roomName"
+      (click)="dialogRef.close(roomName)"
+      ariaLabel="Submit Emphasized"
+    ></fd-button-bar>
+
+    <fd-button-bar
+      label="Cancel"
+      (click)="dialogRef.dismiss('Cancel')"
+      ariaLabel="Cancel"
+    ></fd-button-bar>
+  </fd-dialog-footer>
+</fd-dialog>

@@ -1,0 +1,11 @@
+<div class="message-wrapper">
+  <div class="message-author">
+    <fd-avatar size="s" [label]="message?.author?.name" [circle]="true" />
+  </div>
+  <div class="message-content">
+    <span class="message-content__text">
+      {{ message?.message }}
+    </span>
+    <span class="message-content__date">{{ message?.created | date }}</span>
+  </div>
+</div>

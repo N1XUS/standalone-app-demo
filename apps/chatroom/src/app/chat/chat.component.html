@@ -1,0 +1,34 @@
+<div class="messages-area" #messagesArea>
+  <standalone-app-message
+    *ngFor="let message of _chatService.messages()"
+    [message]="message"
+    transformedBooleanValue="true"
+  ></standalone-app-message>
+</div>
+
+<div class="compose-message-area">
+  <fd-feed-input aria-label="Feed input">
+    <fd-avatar
+      fdFeedInputAvatar
+      [circle]="true"
+      size="s"
+      role="img"
+      [label]="_userService.userName()"
+    ></fd-avatar>
+
+    <textarea
+      fd-form-control
+      fdFeedInputTextarea
+      [(ngModel)]="newMessage"
+      placeholder="Post something here"
+    ></textarea>
+
+    <button
+      fd-button
+      fdFeedInputButton
+      aria-label="Send"
+      title="Send"
+      (click)="sendMessage()"
+    ></button>
+  </fd-feed-input>
+</div>

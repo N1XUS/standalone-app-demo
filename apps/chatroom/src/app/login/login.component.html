@@ -1,0 +1,22 @@
+<form
+  class="login-form sap-border-radius-element sap-has-shadow-level-3"
+  (ngSubmit)="onSubmit()"
+>
+  <div fd-form-item>
+    <label fd-form-label for="login-input">Your name</label>
+    <input
+      fd-form-control
+      type="text"
+      id="login-input"
+      placeholder="Plese provide your name"
+      name="login"
+      [(ngModel)]="login"
+      required=""
+    />
+  </div>
+  <div fd-form-item>
+    <button fd-button type="submit" fdType="emphasized" [disabled]="!login">
+      Submit
+    </button>
+  </div>
+</form>

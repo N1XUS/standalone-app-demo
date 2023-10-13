@@ -1,0 +1,180 @@
+{
+  "name": "chatroom",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "standalone-app",
+  "sourceRoot": "apps/chatroom/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/chatroom/browser",
+        "index": "apps/chatroom/src/index.html",
+        "main": "apps/chatroom/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/chatroom/tsconfig.app.json",
+        "assets": [
+          "apps/chatroom/src/favicon.ico",
+          "apps/chatroom/src/assets",
+          {
+            "glob": "**/css_variables.css",
+            "input": "./node_modules/@sap-theming/theming-base-content/content/Base/baseLib/",
+            "output": "./assets/theming-base/"
+          },
+          {
+            "glob": "**/*",
+            "input": "./node_modules/fundamental-styles/dist/theming/",
+            "output": "./assets/fundamental-styles-theming/"
+          }
+        ],
+        "styles": [
+          "apps/chatroom/src/styles.scss",
+          "./node_modules/@fundamental-styles/common-css/dist/sap-elevation.css",
+          "./node_modules/@fundamental-styles/common-css/dist/sap-shadow.css",
+          "./node_modules/@fundamental-styles/common-css/dist/sap-border-radius.css",
+          "./node_modules/@fundamental-styles/common-css/dist/sap-padding.css",
+          {
+            "input": "apps/chatroom/src/app/fonts/sap_fiori_3_fonts.css",
+            "inject": false,
+            "bundleName": "sap_fiori_3_fonts"
+          },
+          {
+            "input": "apps/chatroom/src/app/fonts/sap_horizon_fonts.css",
+            "inject": false,
+            "bundleName": "sap_horizon_fonts"
+          }
+        ],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["node_modules"]
+        }
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "outputHashing": "all"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "chatroom:build:production"
+        },
+        "development": {
+          "browserTarget": "chatroom:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/chatroom/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "chatroom:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/chatroom/**/*.ts", "apps/chatroom/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/chatroom/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/chatroom/server",
+        "main": "apps/chatroom/server.ts",
+        "tsConfig": "apps/chatroom/tsconfig.server.json",
+        "stylePreprocessorOptions": {
+          "includePaths": ["node_modules"]
+        },
+        "externalDependencies": [
+          "@nestjs/microservices",
+          "@nestjs/microservices/microservices-module",
+          "@nestjs/websockets",
+          "@nestjs/websockets/socket-module",
+          "cache-manager"
+        ],
+        "fileReplacements": [
+          {
+            "replace": "apps/chatroom/src/app/environments/environment.ts",
+            "with": "apps/chatroom/src/app/environments/environment.server.ts"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "optimization": false
+        },
+        "development": {
+          "buildOptimizer": false,
+          "outputHashing": "media",
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "chatroom:build:development",
+          "serverTarget": "chatroom:server:development"
+        },
+        "production": {
+          "browserTarget": "chatroom:build:production",
+          "serverTarget": "chatroom:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": ["/"]
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "chatroom:build:production",
+          "serverTarget": "chatroom:server:production"
+        },
+        "development": {
+          "browserTarget": "chatroom:build:development",
+          "serverTarget": "chatroom:server:development"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  }
+}

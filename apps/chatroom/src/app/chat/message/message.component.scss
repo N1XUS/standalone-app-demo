@@ -1,0 +1,39 @@
+@import '@fundamental-styles/common-css/dist/sass/common-mixins';
+
+.message-wrapper {
+  display: inline-flex;
+  // @include sap-set-border-radius(0.5rem);
+  // @include sap-border(0.0625rem, solid, var(--btp-Grey3));
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  flex-direction: row;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  @include sap-set-border-radius(0.5rem);
+  @include sap-border(0.0625rem, solid, var(--btp-Grey3));
+  padding: 0.5rem 1rem;
+  max-width: 20rem;
+
+  &__text {
+    @include sap-font(standard-text);
+  }
+
+  &__date {
+    @include sap-font(small-detail-text);
+  }
+}
+
+:host {
+  display: flex;
+  &.mine {
+    justify-content: end;
+    .message-wrapper {
+      flex-direction: row-reverse;
+    }
+  }
+}
